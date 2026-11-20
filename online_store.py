@@ -161,11 +161,18 @@ class Store ():
                         quantity = int (quantity)
                         if num in self.inventory and quantity < self.inventory[num][product_name]["qnt"]:
                             self.inventory[num][product_name]["qnt"] -= quantity
-                            self.cart.append({"product" : product_name,
-                                        "quantity":quantity,
-                                        "price":price
-                                        })
-                            print("item added to cart!")
+                            if len(self.cart) != 0:
+                                for item in self.cart:
+                                    if item["product"] == product_name:
+                                        item["quantity"] += quantity
+                                    else:
+                                        continue
+                            else:
+                                self.cart.append({"product" : product_name,
+                                "quantity":quantity,
+                                "price":price
+                                })
+                                print("item added to cart!")
                             self.product = product_name
                             self.price   = price
                             self.quantity=quantity
